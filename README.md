@@ -1,26 +1,28 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/), [Sanity.io]("https://www.sanity.io/") and [Tailwindcss]("https://tailwindcss.com/") started with the oficial [sanity documentation]("https://www.sanity.io/guides/sanity-nextjs-tailwindcss") and a first 40 min of this [Youtube Video]("https://www.youtube.com/watch?v=x3fCEPFgUSM")
 
 ## Getting Started
 
-First, run the development server:
+First, install all dependencies:
 
 ```bash
-npm run dev
+npm i 
 # or
-yarn dev
-# or
-pnpm dev
+npm install
+```
+Change your envarioment variables, to do that go to [sanity personal manage]("https://www.sanity.io") if you doesn't have one, login
+
+Then change you enviroment variables into .env file
+
+```.env
+NEXT_PUBLIC_SANITY_PROJECT_ID=you_proyect_id
+NEXT_PUBLIC_SANITY_DATASET=dataset_name
+NEXT_PUBLIC_SANITY_API_VERSION=release_date
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Now you are ready to run
+```bash
+npm run dev 
+```
 
 ## Learn More
 
@@ -30,6 +32,8 @@ To learn more about Next.js, take a look at the following resources:
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+- [next-sanity example]("https://github.com/sanity-io/next-sanity#using-the-pages-directory-2")
 
 ## Deploy on Vercel
 
