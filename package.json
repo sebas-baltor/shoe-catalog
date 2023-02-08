@@ -12,8 +12,10 @@
   },
   "dependencies": {
     "@next/font": "13.1.6",
+    "@sanity/image-url": "^1.0.2",
     "@sanity/vision": "^3.0.0",
     "autoprefixer": "^10.4.13",
+    "embla-carousel-react": "^7.0.9",
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
     "next": "13.1.6",
