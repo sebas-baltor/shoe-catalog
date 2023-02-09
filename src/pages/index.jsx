@@ -7,7 +7,7 @@ export default function Home({banner}) {
     <>
       <Navbar />
       <Banner data={banner}/>
-      <div className={`${styles.innerWidth} bg-slate-50`}>
+      <div className={`${styles.innerWidth} bg-slate-100 w-[100vw]`}>
         right way to create a sanity nextjs and tailwindcss proyect setup
       </div>
     </>
