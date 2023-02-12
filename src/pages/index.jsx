@@ -1,14 +1,15 @@
 import styles from "../styles";
 import Navbar from "components/navbar";
 import Banner from "components/Banner";
-import getBanner from "lib/sanity";
-export default function Home({banner}) {
+import {getBanner,getBasicShoesInfo} from "lib/sanity";
+import ShoeCard from "components/ShoeCard";
+export default function Home({banner,shoes}) {
   return (
     <>
       <Navbar />
       <Banner data={banner}/>
-      <div className={`${styles.innerWidth} bg-slate-100 w-[100vw]`}>
-        right way to create a sanity nextjs and tailwindcss proyect setup
+      <div className={`${styles.innerWidth,styles.paddings} grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 p-4 mx-auto grid-row-auto justify-items-center`}>
+        {shoes.map((shoe)=>(<ShoeCard key={shoe._id} shoeData={shoe}/>))}
       </div>
     </>
   );
@@ -17,8 +18,9 @@ export default function Home({banner}) {
 
 export async function getStaticProps() {
   const banner = await getBanner();
+  const shoes = await getBasicShoesInfo();
   return {
-      props: { banner },
+      props: { banner,shoes },
   };
 }
 
