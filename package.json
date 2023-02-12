@@ -15,7 +15,6 @@
     "@sanity/image-url": "^1.0.2",
     "@sanity/vision": "^3.0.0",
     "autoprefixer": "^10.4.13",
-    "embla-carousel-react": "^7.0.9",
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
     "next": "13.1.6",
@@ -28,6 +27,7 @@
     "react-is": "^18.2.0",
     "sanity": "^3.0.0",
     "styled-components": "^5.2.0",
+    "swiper": "^9.0.3",
     "tailwindcss": "^3.2.4"
   },
   "devDependencies": {
