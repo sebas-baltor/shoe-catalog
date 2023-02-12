@@ -2,30 +2,57 @@ import { client } from "lib/config";
 import Img from "next/image";
 import { useNextSanityImage } from "next-sanity-image";
 import { GiConverseShoe } from "react-icons/gi";
-import {AiOutlineArrowRight,AiOutlineArrowLeft} from "react-icons/ai"
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+// import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
 import styles from "@/styles";
-import useEmblaCarousel from "embla-carousel-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation } from "swiper";
+import { useRef } from "react";
+
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 export default function Banner({ data }) {
+  const swiperRef = useRef();
+  const swiperIndex = useRef();
+  const swiperBreackpoints = {
+    768: {
+      slidesPerView: 1,
+    },
+    1024: {
+      slidesPerView: 2,
+    },
+    1250:{
+      slidesPerView:3,
+    },
+    1500:{
+      slidesPerView:4,
+    },
+    2200:{
+      slidesPerView:5,
+      spaceBetween:5
+    }
+  }
   const imageProps = useNextSanityImage(client, data.image);
-  const [bannerCarousel] = useEmblaCarousel()
+
   return (
     <main className={`w-full h-[100vh] flex`}>
-      <div className="border-r-2 border-slate-200 px-2 h-full w-[10%]">
+      <div className="border-r-2 border-slate-200 px-2 h-full w-[5%]">
         <div className="w-full bg-black my-2">
           <GiConverseShoe className="text-white text-6xl mx-auto" />
         </div>
       </div>
-      <div className="px-4 h-full w-screen">
+      <div className="px-4 h-full w-full">
         <div className={`h-4/6 relative w-full ${styles.flexCenter}`}>
           <h1 className="col-span-3 text-8xl text-slate-300 font-black inset-0 bottom-0 text-center">
             {data.title.toUpperCase()}
           </h1>
           <div className="absolute right-1 bottom-10 w-[20%]">
-              <h4 className="font-black text-2xl">{data.shoe_model}</h4>
-              <p>{data.description.substring(0,60)} ...</p>
-            </div>
-          <div className="absolute inset-x-0 bottom-0 w-full lg:w-1/2 mx-auto">
+            <h4 className="font-black text-2xl">{data.shoe_model}</h4>
+            <p>{data.description.substring(0, 60)}...</p>
+          </div>
+          <div className="absolute inset-x-0 bottom-0 w-full md:w-1/2 mx-auto">
             <Img
               {...imageProps}
               style={{ width: "auto", height: "100%" }} // layout="responsive" prior to Next 13.0.0
@@ -36,18 +63,76 @@ export default function Banner({ data }) {
             />
           </div>
         </div>
-        <div className="h-2/6 flex justify-between items-center">
-          <div>indicator</div>
-          <div>
-            <div>
-              <button><AiOutlineArrowLeft/></button>
-              <button><AiOutlineArrowRight/></button>
+        <div className="h-2/6 grid grid-cols-3">
+          <div className="flex items-end gap-1 mb-10">
+            <div ref={swiperIndex} className="font-black text-2xl">01</div>
+            <div className="relative w-1/2 rounded-sm">
+              <div id="custom_pagination" className="h-2 w-full"></div>
             </div>
-            <div className="embla" ref={bannerCarousel}>
-              <div className="embla__container">
-              <div className="embla__slider">shoe 1</div>
-              <div className="embla__slider">shoe 2</div>
-              </div>
+          </div>
+          <div className="col-span-2 flex items-end">
+            <div className="flex flex-col justify-end">
+              <button
+                className="w-10 h-10 bg-slate-500 text-white hover:bg-black"
+                onClick={() => swiperRef.current.swiper.slidePrev()}
+              >
+                <BsArrowLeft className="m-auto" />
+              </button>
+              <button
+                className="w-10 h-10 bg-slate-500 text-white hover:bg-black"
+                onClick={() => swiperRef.current.swiper.slideNext()}
+              >
+                <BsArrowRight className="m-auto" />
+              </button>
+            </div>
+            <div className="overflow-hidden w-full">
+              <Swiper
+                ref={swiperRef}
+                slidesPerView={1}
+                modules={[Pagination, Navigation]}
+                pagination={{
+                  el: "#custom_pagination",
+                  type: "progressbar",
+                  progressbarFillClass:
+                    "bg-black w-full h-full absolute left-0 top-0 origin-top-left",
+                }}
+                breakpoints={swiperBreackpoints}
+                centeredSlides={true}
+                onActiveIndexChange={(swiper) => {
+                  swiperIndex.current.innerText =
+                    swiper.activeIndex < 10
+                      ? `0${swiper.activeIndex + 1}`
+                      : swiper.activeIndex;
+                }}
+              >
+                {data.features.map((shoe) => {
+                  const shoeImageData = useNextSanityImage(
+                    client,
+                    shoe.shoes_images
+                  );
+                  return (
+                    <SwiperSlide className="w-60">
+                      <div className="w-60 h-48 max-h-48 border-4 border-slate-200 flex flex-col justify-center items-center">
+                        <h5 className="font-semibold">{shoe.name}</h5>
+                        <div>
+                          <Img
+                            key={`key-${shoe.name}`}
+                            {...shoeImageData}
+                            className="h-32"
+                            style={{ width: "auto" }} // layout="responsive" prior to Next 13.0.0
+                            sizes="(max-width: 800px) 100vw, 800px"
+                            placeholder="blur"
+                            blurDataURL={
+                              shoe.shoes_images.asset.metadata.lqip
+                            }
+                            alt={shoe.name}
+                          />
+                        </div>
+                      </div>
+                    </SwiperSlide>
+                  );
+                })}
+              </Swiper>
             </div>
           </div>
         </div>
