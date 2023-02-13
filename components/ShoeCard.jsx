@@ -8,7 +8,7 @@ export default ({ shoeData }) => {
   return (
     <Link
       href={`shoe/${shoeData._id}`}
-      className="w-full p-4 hover:bg-slate-100 border-2 border-slate-400"
+      className="w-full p-4 bg-slate-100 hover:bg-slate-200"
     >
         <Img
         className="h-32 mx-auto"

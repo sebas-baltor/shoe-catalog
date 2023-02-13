@@ -6,11 +6,13 @@ import ShoeCard from "components/ShoeCard";
 export default function Home({banner,shoes}) {
   return (
     <>
-      <Navbar />
+      <Navbar home={true}/>
       <Banner data={banner}/>
-      <div className={`${styles.innerWidth,styles.paddings} grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 p-4 mx-auto grid-row-auto justify-items-center`}>
+      <section className={`${styles.paddings}`}>
+        <div className={`${styles.innerWidth} mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 grid-row-auto`}>
         {shoes.map((shoe)=>(<ShoeCard key={shoe._id} shoeData={shoe}/>))}
-      </div>
+        </div>
+      </section>
     </>
   );
 }
