@@ -87,6 +87,7 @@ export default function Banner({ data }) {
                   ref={swiperRef}
                   slidesPerView={1}
                   modules={[Pagination, Navigation]}
+                  spaceBetween={10}
                   pagination={{
                     el: "#custom_pagination",
                     type: "progressbar",
